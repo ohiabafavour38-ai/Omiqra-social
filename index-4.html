@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OMIQRA — Clickable Prototype</title>
+<style>
+:root{--plum:#48233f;--plum2:#6a3a60;--lav:#eee5f0;--gold:#c8a96b;--cream:#fbf9f6;--ink:#28232a;--muted:#827985;--line:#eee8ed;--white:#fff}
+*{box-sizing:border-box}body{margin:0;background:#eee9ed;color:var(--ink);font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif}
+.app{max-width:430px;min-height:100vh;margin:auto;background:var(--cream);position:relative;padding-bottom:82px;box-shadow:0 0 40px #33203318}
+header{padding:20px 19px 13px;background:var(--cream);position:sticky;top:0;z-index:4;border-bottom:1px solid var(--line)}
+.top{display:flex;align-items:center;justify-content:space-between}.brand{font-family:Georgia,serif;font-size:27px;font-weight:700;letter-spacing:2px;color:var(--plum)}.brand small{display:block;font:10px Inter,sans-serif;letter-spacing:1.7px;color:var(--muted);margin-top:1px}
+.iconbtn{border:1px solid var(--line);background:white;border-radius:50%;width:39px;height:39px;font-size:17px;cursor:pointer;color:var(--plum)}
+.search{margin-top:15px;display:flex;gap:9px;background:white;border:1px solid var(--line);padding:11px 13px;border-radius:13px;color:var(--muted);font-size:13px}
+main{padding:17px 17px 20px}.welcome{font-family:Georgia,serif;font-size:23px;margin:2px 0 4px;color:var(--plum)}.sub{font-size:12px;color:var(--muted);margin:0 0 17px}
+.sectionhead{display:flex;justify-content:space-between;align-items:center;margin:20px 0 11px}.sectionhead h3{font-size:14px;margin:0;color:var(--plum)}.sectionhead button,.textlink{border:0;background:none;color:var(--plum2);font-size:11px;font-weight:650;cursor:pointer}
+.stories{display:flex;gap:13px;overflow-x:auto;padding:2px 0 7px}.story{flex:0 0 61px;text-align:center;font-size:10px;color:#5f5660}.ring{width:57px;height:57px;border-radius:50%;padding:3px;margin:0 auto 5px;background:linear-gradient(135deg,var(--gold),#b88bb4,var(--plum2))}.ring span{display:grid;place-items:center;width:100%;height:100%;border:2px solid var(--cream);border-radius:50%;background:var(--lav);font-size:20px;color:var(--plum)}
+.tabs{display:flex;gap:17px;border-bottom:1px solid var(--line);margin:18px 0 13px}.tab{padding:0 0 9px;border:0;background:none;color:var(--muted);font-size:12px;cursor:pointer}.tab.active{color:var(--plum);font-weight:700;border-bottom:2px solid var(--gold)}
+.card{background:white;border:1px solid var(--line);border-radius:16px;padding:14px;margin-bottom:13px}.person{display:flex;align-items:center;gap:9px}.avatar{width:37px;height:37px;border-radius:50%;display:grid;place-items:center;background:var(--lav);font-size:17px}.person strong{font-size:12px;display:block}.person small{font-size:10px;color:var(--muted)}.dots{margin-left:auto;color:var(--muted);letter-spacing:2px}.posttext{font-size:13px;line-height:1.5;margin:13px 0;color:#413943}.postart{height:145px;border-radius:12px;background:linear-gradient(135deg,#e9dce9,#f5e9d8);display:grid;place-items:center;text-align:center;color:var(--plum);font-family:Georgia,serif;font-size:21px;padding:15px}.postart.alt{background:linear-gradient(135deg,#e5e9e0,#eee2ed)}.actions{display:flex;gap:18px;margin-top:12px}.actions button{border:0;background:none;color:#756b77;font-size:11px;cursor:pointer;padding:2px}.actions button.liked{color:#b34e76}.bottom{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:min(430px,100%);height:70px;background:#fff;border-top:1px solid var(--line);display:flex;justify-content:space-around;align-items:center;z-index:5}.nav{border:0;background:none;color:#8b818c;font-size:10px;display:flex;flex-direction:column;align-items:center;gap:4px;cursor:pointer}.nav span{font-size:19px}.nav.active{color:var(--plum);font-weight:700}.nav.create span{background:var(--plum);color:white;border-radius:12px;padding:3px 10px}
+.panel{display:none}.panel.active{display:block}.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.tile{background:white;border:1px solid var(--line);border-radius:14px;padding:14px;min-height:115px}.tile .emoji{font-size:24px}.tile strong{display:block;font-size:12px;margin:8px 0 4px;color:var(--plum)}.tile small{font-size:10px;color:var(--muted)}.pill{display:inline-block;background:var(--lav);color:var(--plum);border-radius:20px;padding:5px 9px;font-size:10px;margin:3px}
+.primary{background:var(--plum);color:white;border:0;border-radius:11px;padding:11px 15px;font-weight:650;font-size:12px;cursor:pointer}.secondary{background:white;border:1px solid var(--line);color:var(--plum);border-radius:11px;padding:10px 13px;font-size:12px;cursor:pointer}.field{width:100%;padding:12px;border:1px solid var(--line);border-radius:10px;margin:7px 0 12px;font:13px inherit;background:white}.label{font-size:11px;color:var(--muted)}.empty{padding:28px 15px;text-align:center;background:white;border:1px solid var(--line);border-radius:15px}.empty h3{font-family:Georgia,serif;color:var(--plum);font-weight:500}.empty p{font-size:12px;color:var(--muted);line-height:1.5}
+.modalbg{display:none;position:fixed;inset:0;background:#21152288;z-index:10;align-items:flex-end;justify-content:center}.modalbg.show{display:flex}.modal{background:var(--cream);width:min(430px,100%);border-radius:22px 22px 0 0;padding:22px 20px 30px}.modal h3{font-family:Georgia,serif;color:var(--plum);margin:0 0 6px}.modal p{font-size:12px;color:var(--muted)}.close{float:right;border:0;background:var(--lav);border-radius:50%;width:29px;height:29px;cursor:pointer}
+.notice{font-size:10px;color:var(--muted);text-align:center;padding:4px 20px 15px}
+@media(min-width:600px){body{padding:18px 0}.app{border-radius:25px;overflow:hidden;min-height:850px}.bottom{position:absolute;bottom:0;border-radius:0 0 25px 25px}.modalbg{align-items:center}.modal{border-radius:22px}}
+</style>
+</head>
+<body>
+<div class="app">
+<header>
+ <div class="top"><div class="brand">OMIQRA<small>EVERYONE HAS A PLACE HERE</small></div><button class="iconbtn" onclick="openModal('Notifications','You are all caught up. New connections and community updates will appear here.')">♧</button></div>
+ <div class="search" onclick="showPanel('discover')">⌕ &nbsp; Search people, interests and communities</div>
+</header>
+<main>
+ <section id="home" class="panel active">
+  <h1 class="welcome">A place to find your people.</h1><p class="sub">Good morning. There's a whole world waiting to connect.</p>
+  <div class="sectionhead"><h3>Stories</h3><button onclick="openModal('Your story','Share a little moment with your OMIQRA community. Stories are a planned prototype feature.')">Add yours +</button></div>
+  <div class="stories">
+   <div class="story"><div class="ring"><span>＋</span></div>Your story</div>
+   <div class="story"><div class="ring"><span>🌻</span></div>Amara</div>
+   <div class="story"><div class="ring"><span>🎧</span></div>David</div>
+   <div class="story"><div class="ring"><span>🌍</span></div>Leila</div>
+   <div class="story"><div class="ring"><span>📚</span></div>Samuel</div>
+  </div>
+  <div class="sectionhead"><h3>Your community, your world</h3><button onclick="showPanel('communities')">Explore</button></div>
+  <div class="tabs"><button class="tab active" onclick="feedTab(this,'For you')">For you</button><button class="tab" onclick="feedTab(this,'Following')">Following</button><button class="tab" onclick="feedTab(this,'Around the world')">Around the world</button></div>
+  <article class="card">
+   <div class="person"><div class="avatar">🌿</div><div><strong>Amara Okafor</strong><small>Creative Corner · 12 min ago</small></div><div class="dots">•••</div></div>
+   <p class="posttext">A reminder that you don't have to have everything figured out. Keep growing at your own pace. 🌱</p>
+   <div class="postart">little steps<br>still move you forward</div>
+   <div class="actions"><button onclick="like(this)">♡ &nbsp; <b>24</b></button><button onclick="openModal('Comments','Comments will live here. You can react, reply and join the conversation.')">◯ &nbsp; 8 comments</button><button onclick="openModal('Share post','Share this thought with your friends or a community.')">↗ Share</button></div>
+  </article>
+  <article class="card">
+   <div class="person"><div class="avatar">🎨</div><div><strong>Daniel Mensah</strong><small>Art & Ideas · 1 hr ago</small></div><div class="dots">•••</div></div>
+   <p class="posttext">What is one hobby you would love to learn if time and money were no issue?</p>
+   <div class="postart alt">MAKE SPACE<br>FOR CURIOSITY ✨</div>
+   <div class="actions"><button onclick="like(this)">♡ &nbsp; <b>16</b></button><button onclick="openModal('Comments','Comments will live here. You can react, reply and join the conversation.')">◯ &nbsp; 5 comments</button><button onclick="openModal('Share post','Share this question with your friends or a community.')">↗ Share</button></div>
+  </article>
+ </section>
+ <section id="discover" class="panel">
+  <h1 class="welcome">Discover</h1><p class="sub">Find people, ideas and places to belong.</p>
+  <div class="search" style="margin:0 0 17px" onclick="openModal('Search OMIQRA','Search by name, interest, topic or community.')">⌕ &nbsp; Search across OMIQRA</div>
+  <div class="sectionhead"><h3>Popular interests</h3></div>
+  <div><span class="pill">🎨 Art & design</span><span class="pill">🎵 Music</span><span class="pill">📚 Books</span><span class="pill">⚽ Sports</span><span class="pill">🍳 Food</span><span class="pill">✈️ Travel</span><span class="pill">💻 Technology</span><span class="pill">🌱 Wellness</span></div>
+  <div class="sectionhead"><h3>People you may like</h3><button onclick="openModal('More people','More suggested profiles will appear here as the community grows.')">See all</button></div>
+  <div class="card"><div class="person"><div class="avatar">🌻</div><div><strong>Leila Hassan</strong><small>Photography · Nairobi</small></div><button class="primary" style="margin-left:auto" onclick="follow(this)">Follow</button></div></div>
+  <div class="card"><div class="person"><div class="avatar">🎧</div><div><strong>Samuel Adeyemi</strong><small>Music lover · Lagos</small></div><button class="primary" style="margin-left:auto" onclick="follow(this)">Follow</button></div></div>
+  <div class="card"><div class="person"><div class="avatar">📖</div><div><strong>Maya James</strong><small>Books & conversation · London</small></div><button class="primary" style="margin-left:auto" onclick="follow(this)">Follow</button></div></div>
+ </section>
+ <section id="communities" class="panel">
+  <h1 class="welcome">Communities</h1><p class="sub">Shared interests can bring the world a little closer.</p>
+  <div class="grid">
+   <div class="tile"><div class="emoji">🎨</div><strong>Creative Corner</strong><small>Art, design and inspiration</small><p><button class="secondary" onclick="join(this)">Join community</button></p></div>
+   <div class="tile"><div class="emoji">📚</div><strong>Book People</strong><small>Readers, writers and stories</small><p><button class="secondary" onclick="join(this)">Join community</button></p></div>
+   <div class="tile"><div class="emoji">🌍</div><strong>Culture Exchange</strong><small>Discover life around the world</small><p><button class="secondary" onclick="join(this)">Join community</button></p></div>
+   <div class="tile"><div class="emoji">🍜</div><strong>Food Circle</strong><small>Recipes, restaurants and food</small><p><button class="secondary" onclick="join(this)">Join community</button></p></div>
+   <div class="tile"><div class="emoji">🎮</div><strong>Game Lounge</strong><small>Play, talk and share</small><p><button class="secondary" onclick="join(this)">Join community</button></p></div>
+   <div class="tile"><div class="emoji">💡</div><strong>Big Ideas</strong><small>Questions, learning and growth</small><p><button class="secondary" onclick="join(this)">Join community</button></p></div>
+  </div>
+ </section>
+ <section id="messages" class="panel">
+  <h1 class="welcome">Messages</h1><p class="sub">Conversations start with a hello.</p>
+  <div class="empty"><div style="font-size:35px">✉️</div><h3>Your inbox starts here</h3><p>When you connect with people, your conversations will appear here. You control who can message you.</p><button class="primary" onclick="showPanel('discover')">Discover people</button></div>
+ </section>
+ <section id="profile" class="panel">
+  <h1 class="welcome">Your profile</h1><p class="sub">Make this space yours.</p>
+  <div class="card" style="text-align:center;padding:24px"><div class="avatar" style="width:68px;height:68px;margin:auto;font-size:28px">😊</div><h3 style="color:var(--plum);margin:10px 0 3px">Your name</h3><small style="color:var(--muted)">@yourhandle · Add your location</small><p class="posttext">Tell the OMIQRA community a little about yourself.</p><button class="primary" onclick="openModal('Edit profile','Add your name, profile photo, bio, location and interests.')">Edit profile</button></div>
+  <div class="sectionhead"><h3>Profile details</h3></div><div class="card"><p class="posttext">Posts &nbsp; 0 &nbsp;&nbsp; Followers &nbsp; 0 &nbsp;&nbsp; Following &nbsp; 0</p></div>
+  <div class="card"><strong style="font-size:12px;color:var(--plum)">Privacy & safety</strong><p class="posttext">Manage who can see your posts, contact you and interact with your profile.</p><button class="secondary" onclick="openModal('Privacy & safety','A real launch must include privacy settings, blocking, reporting, age-appropriate protections and moderation.')">View settings</button></div>
+ </section>
+ <div class="notice">OMIQRA prototype · Sample profiles and posts · Not a live social network yet</div>
+</main>
+<nav class="bottom">
+ <button class="nav active" onclick="showPanel('home',this)"><span>⌂</span>Home</button>
+ <button class="nav" onclick="showPanel('discover',this)"><span>⌕</span>Discover</button>
+ <button class="nav create" onclick="openModal('Create a post','Share a thought, photo or question with your OMIQRA community. Posting will be enabled in a connected build.')"><span>＋</span>Create</button>
+ <button class="nav" onclick="showPanel('communities',this)"><span>♧</span>Communities</button>
+ <button class="nav" onclick="showPanel('profile',this)"><span>◉</span>Profile</button>
+</nav>
+</div>
+<div class="modalbg" id="modalbg" onclick="if(event.target===this)closeModal()"><div class="modal"><button class="close" onclick="closeModal()">×</button><h3 id="mtitle"></h3><p id="mbody"></p><button class="primary" onclick="closeModal()">Got it</button></div></div>
+<script>
+function showPanel(id,btn){document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));document.getElementById(id).classList.add('active');document.querySelectorAll('.nav').forEach(n=>n.classList.remove('active'));if(btn)btn.classList.add('active');else{const map={home:0,discover:1,communities:3,messages:3,profile:4};document.querySelectorAll('.nav')[map[id]||0].classList.add('active')}window.scrollTo({top:0,behavior:'smooth'})}
+function openModal(t,b){document.getElementById('mtitle').textContent=t;document.getElementById('mbody').textContent=b;document.getElementById('modalbg').classList.add('show')}
+function closeModal(){document.getElementById('modalbg').classList.remove('show')}
+function like(btn){btn.classList.toggle('liked');let b=btn.querySelector('b');let n=Number(b.textContent);b.textContent=btn.classList.contains('liked')?n+1:n-1;btn.firstChild.textContent=btn.classList.contains('liked')?'♥  ':'♡  '}
+function follow(btn){btn.textContent=btn.textContent==='Follow'?'Following':'Follow';btn.style.background=btn.textContent==='Following'?'#eee5f0':'#48233f';btn.style.color=btn.textContent==='Following'?'#48233f':'white'}
+function join(btn){btn.textContent=btn.textContent==='Join community'?'Joined ✓':'Join community';btn.classList.toggle('primary')}
+function feedTab(btn,label){document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));btn.classList.add('active');if(label!=='For you')openModal(label,label==='Following'?'Posts from people you follow will appear in this feed.':'Explore public posts from people and communities around the world.')}
+</script>
+</body>
+</html>
